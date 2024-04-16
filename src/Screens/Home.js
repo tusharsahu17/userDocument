@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {
   DARK_COLOR,
@@ -11,13 +11,26 @@ import FaceHeader from '../components/FaceHeader';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const Home = () => {
+  const navigation = useNavigation();
+  const profiles = useSelector(state => state.profile.profiles);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerStyles}>
         <HeaderContainer />
-        <FaceHeader />
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Profile', {
+              isProfile: true,
+              profileData: profiles,
+            })
+          }>
+          <FaceHeader />
+        </Pressable>
       </View>
       <View style={styles.headingContainer}>
         <Text style={styles.titleStyle}> WELCOME to </Text>
@@ -33,7 +46,9 @@ const Home = () => {
           <Text style={styles.titleStyle}> T</Text>
         </View>
       </View>
-      <View style={styles.btnContainer}>
+      <Pressable
+        style={styles.btnContainer}
+        onPress={() => navigation.navigate('Profile')}>
         <MaterialIcons
           style={{
             color: '#ADD8E6',
@@ -45,7 +60,7 @@ const Home = () => {
         <Text style={[styles.textStyle, {color: LIGHT_COLOR}]}>
           My Profiles
         </Text>
-      </View>
+      </Pressable>
       <View style={styles.bottomContainer}>
         <Text style={styles.headingText}>My Favourites</Text>
 

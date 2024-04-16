@@ -41,7 +41,7 @@ const Document = () => {
   return (
     <View>
       <FlatList
-        data={data.data}
+        data={data?.data}
         renderItem={({item}) => <Item item={item} />}
         keyExtractor={item => item.id}
       />
